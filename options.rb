@@ -12,7 +12,7 @@ class UPSHomebusAppOptions < Homebus::Options
   end
 
   def banner
-    'HomeBus UPS (Uninterruptible Power Supply) publisher
+    'HomeBus UPS (Uninterruptible Power Supply) publisher'
   end
 
   def version

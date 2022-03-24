@@ -6,6 +6,7 @@ require 'snmp'
 class UPSHomebusApp < Homebus::App
   DDC_UPS = 'org.homebus.experimental.uninterruptible-power-supply'
   DDC_SYSTEM = 'org.homesbus.experimental.system'
+  DDC_DIAGNOSTIC = 'org.homesbus.experimental.diagnostic'
 
   def initialize(options)
     @options = options
@@ -98,12 +99,24 @@ class UPSHomebusApp < Homebus::App
 
     results.delete(:firmware_version)
 
+    if false
+      diagnostic = {
+        freeheap: nil,
+        uptime: results[:uptime],
+        rssi: nil,
+        reboots: nil,
+        wifi_failures: nil
+      }
+
+      @device.publish! DDC_DIAGNOSTIC, system
+    end
+
     if results
       if @options[:verbose]
         pp results
       end
 
-#      @device.publish! DDC_UPS, results
+     @device.publish! DDC_UPS, results
     end
 
     sleep update_interval
@@ -127,7 +140,7 @@ class UPSHomebusApp < Homebus::App
         identity: {
           manufacturer: @manufacturer,
           model: @model,
-          serial_number: @serial_number
+          serial_number: @sysName
         }
       }
     ]
