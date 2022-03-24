@@ -1,0 +1,20 @@
+[Unit]
+Description=HomeBus uninterruptible power supply publisher
+After=network.target
+
+[Service]
+Type=simple
+
+User=homebus
+WorkingDirectory=/home/homebus/homebus-uninterruptible-power-supply
+
+ExecStart=/home/homebus/.rbenv/bin/rbenv exec bundle exec homebus-uninterruptible-power-supply.rb  -a 10.0.1.1 -c public
+TimeoutSec=30
+
+Restart=always
+RestartSec=90
+StartLimitInterval=400
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
