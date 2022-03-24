@@ -45,6 +45,11 @@ class UPSHomebusApp < Homebus::App
     puts
     puts 'sysThings'
     puts @sysName, @sysDescr, @sysLocation, @manufacturer, @model, @sysUptime
+
+    @device = Homebus::Device.new name: 'Uninterruptible Power Supply',
+                                  manufacturer: @manufacturer,
+                                  model: @model,
+                                  serial_number: @sysName
   end
 
   def _get_data
@@ -131,18 +136,10 @@ class UPSHomebusApp < Homebus::App
   end
 
   def publishes
-    [ DDC_UPS, DDC_SYSTEM ]
+    [ DDC_UPS, DDC_SYSTEM, DDC_DIAGNOSTIC ]
   end
 
   def devices
-    [
-      { name: 'Uninterruptible Power Supply',
-        identity: {
-          manufacturer: @manufacturer,
-          model: @model,
-          serial_number: @sysName
-        }
-      }
-    ]
+    [ @device ]
   end
 end
