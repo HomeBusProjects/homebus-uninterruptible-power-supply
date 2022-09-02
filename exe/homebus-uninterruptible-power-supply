@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'homebus-uninterruptible-power-supply/options'
+require 'homebus-uninterruptible-power-supply/app'
+
+options = HomebusUninterruptiblePowerSupply::Options.new
+app = HomebusUninterruptiblePowerSupply::App.new(options.options)
+app.run!
+

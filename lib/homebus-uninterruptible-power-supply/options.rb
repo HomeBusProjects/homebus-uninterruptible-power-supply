@@ -1,6 +1,8 @@
 require 'homebus/options'
 
-class UPSHomebusAppOptions < Homebus::Options
+require 'homebus-uninterruptible-power-supply/version'
+
+class HomebusUninterruptiblePowerSupply::Options < Homebus::Options
   def app_options(op)
     agent_help     = 'the SNMP agent IP address or name'
     community_help = 'the SNMP community string'
@@ -16,7 +18,7 @@ class UPSHomebusAppOptions < Homebus::Options
   end
 
   def version
-    '0.0.1'
+    HomebusUninterruptiblePowerSupply::VERSION
   end
 
   def name

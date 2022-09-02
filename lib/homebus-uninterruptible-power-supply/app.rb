@@ -3,7 +3,7 @@ require 'dotenv/load'
 
 require 'snmp'
 
-class UPSHomebusApp < Homebus::App
+class HomebusUninterruptiblePowerSupply::App < Homebus::App
   DDC_UPS = 'org.homebus.experimental.uninterruptible-power-supply'
   DDC_SYSTEM = 'org.homesbus.experimental.system'
   DDC_DIAGNOSTIC = 'org.homesbus.experimental.diagnostic'
@@ -83,6 +83,8 @@ class UPSHomebusApp < Homebus::App
         results[key] = vb.value.to_s
       end
     end
+
+    results[:input_frequency] /= 10.0
 
     return results
   end
